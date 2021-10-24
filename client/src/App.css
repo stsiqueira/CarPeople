@@ -1,0 +1,20 @@
+.App {
+  text-align: center;
+}
+
+.cardContainer{
+  padding: .5rem 1rem 1rem 1rem;
+  margin: 1rem 2rem;
+  box-shadow: 1px 2px 3px 3px rgba(0,0,0,.2);
+
+}
+.carsContainer{
+  display: flex;
+  flex-direction: row nowrap;
+  justify-content: space-around
+}
+.carContainer{
+  padding: .5rem 1rem;
+  box-shadow: 1px 2px 3px 3px rgba(0,0,0,.2);
+}
+
