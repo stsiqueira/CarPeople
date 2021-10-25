@@ -1,5 +1,4 @@
 import React from "react";
-import { List } from 'antd'
 import { useQuery } from '@apollo/client'
 import { GET_CARS } from '../../queries'
 import Car from "../listItems/Car";
@@ -13,9 +12,9 @@ const CarCards = (props) => {
     return (
         <div className="carsContainer">
         {
-            data.cars.filter(( { personId } ) => personId == props.personId )
-                .map(( { id, year, make, model, price } ) => (
-                    <Car key={id} year={year} make={make} model={model} price={price}/>
+            data.cars.filter(( { personId } ) => personId === props.personId )
+                .map(( { id, year, make, model, price, personId } ) => (
+                    <Car key={id} id={id} year={year} make={make} model={model} price={price} personId={personId}/>
             ))
         }
         </div>

@@ -17,4 +17,9 @@
   padding: .5rem 1rem;
   box-shadow: 1px 2px 3px 3px rgba(0,0,0,.2);
 }
-
+.wrapForm{
+  display: flex;
+  border: 1px solid black;
+  justify-content: space-around;
+  padding: 0 5rem;
+}

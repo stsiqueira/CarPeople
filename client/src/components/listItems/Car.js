@@ -1,13 +1,7 @@
-import React, { useState }from "react";
-
-const getStyles = () => ({
-    card:{
-
-    }
-})
+import React from "react";
+import RemoveCar from "../buttons/RemoveCar";
 
 const Car = ( props ) => {
-    const styles = getStyles();
 
     return (
         <div className="carContainer">
@@ -15,6 +9,9 @@ const Car = ( props ) => {
             <p>Model: {props.model}</p>
             <p>Year: {props.year}</p>
             <p>Price: {props.price}</p>
+            <div className="button">
+                <RemoveCar data={props} />
+            </div>
         </div>
     )
 }
