@@ -1,5 +1,6 @@
 
 import './App.css';
+import 'antd/dist/antd.css';
 import PeopleCards from './components/lists/PeopleCards';
 import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
 import Forms from './components/forms/Forms';

@@ -1,30 +1,31 @@
 import React, { useState } from "react";
 import { Form, Input, Button, Select } from 'antd'
 import { useMutation, useQuery } from "@apollo/client";
-import { ADD_CAR, GET_CARS, GET_PEOPLE } from "../../queries";
-import { v4 as uuidv4 } from 'uuid'
+import { GET_PEOPLE, UPDATE_CAR, } from "../../queries";
 
 
-const AddCar = ( props ) => {
-    const { Option } = Select;
-    const [ id ] = useState(uuidv4)
+const UpdateCar = ( props ) => {
+
+
     const [ form ] = Form.useForm()
-    const [ personId, setPersonId ] = useState()
+    const [ updateCar ] = useMutation(UPDATE_CAR)
+    const { loading, error, data } = useQuery(GET_PEOPLE)
+    const [ owner ] = useState(data.people.find((person) => { return person.id === props.data.personId } ))
+    const [ updatePersonId, setUpdatePersonId] = useState()
 
-    const [ addCar ] = useMutation(ADD_CAR)
-    const { data } = useQuery(GET_PEOPLE)
+    if(loading) return 'Loading...'
+    if(error) return `Error! ${error.message}`
+    const { Option } = Select;
 
-    const handleSelectChange = (id) =>{
-        setPersonId(id)
-    }
-
+    
     const onFinish = values => {
         const { stringYear, make, model, stringPrice } = values
-        const year = parseInt(stringYear)
-        const price = parseFloat(stringPrice)
-        
+        const id = props.data.id
+        let year = parseInt(stringYear)
+        let price = parseFloat(stringPrice)
+        const personId = updatePersonId
 
-        addCar({
+        updateCar({
             variables:{
                 id,
                 year,
@@ -35,7 +36,7 @@ const AddCar = ( props ) => {
             },
             optimisticResponse:{
                 __typename:'Mutation',
-                addCar:{
+                updateCar:{
                     __typename:'Car',
                         id,
                         year,
@@ -44,26 +45,28 @@ const AddCar = ( props ) => {
                         price,
                         personId
                 }
-            },
-            update: (proxy, { data: { addCar } } ) => {
-                const data = proxy.readQuery( { query: GET_CARS } )
-                proxy.writeQuery({
-                    query: GET_CARS,
-                    data:{
-                        ...data,
-                        cars: [...data.cars, addCar]
-                    }
-                })
             }
         })
         props.handleEditMode()
     }
+    const handleSelectChange = (id) =>{
+        setUpdatePersonId(id)
+    }
+
     return (
         <Form
             form={form}
-            name='add-car'
+            name='update-car'
             size='large'
             onFinish={onFinish}
+            initialValues={{
+                stringYear:props.data.year,
+                make:props.data.make,
+                model:props.data.model,
+                stringPrice:props.data.price,
+                stringPersonId:owner ? `${owner.firstName} ${owner.lastName}` : 'Loading...'
+            }}
+
             >
             <Form.Item
                 name='stringYear'
@@ -93,7 +96,7 @@ const AddCar = ( props ) => {
                     onChange={handleSelectChange}
                     >
                         {
-                            data.people.map(({id, firstName, lastName})=> (
+                            data.people.map(({id, firstName, lastName}) => (
                                 <Option key={id} value={`${id}`}>{firstName} {lastName}</Option>
                             ))
                         }
@@ -108,12 +111,13 @@ const AddCar = ( props ) => {
                             !form.isFieldsTouched(true) ||
                             form.getFieldsError().filter( ( {  errors } ) => errors.length ).length
                         }
-                    > Add Car</Button>
+                    > Update</Button>
                 )}
+
             </Form.Item>
-            <Button onClick={() => props.handleEditMode()}>Cancel</Button>
+            <Button onClick={props.handleEditMode}> Cancel </Button>
         </Form>
     )
 }
-export default AddCar
+export default UpdateCar
 

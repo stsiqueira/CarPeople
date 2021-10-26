@@ -1,18 +1,17 @@
 import React, { useState } from "react";
 import { Form, Input, Button } from 'antd' 
-import { v4 as uuidv4 } from 'uuid'
 import { useMutation } from "@apollo/client";
-import { ADD_PERSON, GET_PEOPLE } from "../../queries";
+import { UPDATE_PERSON } from "../../queries";
 
-const AddPerson = ( props ) => {
-    const [ id ] = useState(uuidv4)
+const UpdatePerson = ( props ) => {
+    const [ id ] = useState(props.id)
     const [ form ] = Form.useForm()
-    const [ addPerson ] = useMutation(ADD_PERSON)
+    const [ updatePerson ] = useMutation(UPDATE_PERSON)
 
     const onFinish = values => {
         const { firstName, lastName } = values
 
-        addPerson({
+        updatePerson({
             variables:{
                 id,
                 firstName,
@@ -20,23 +19,12 @@ const AddPerson = ( props ) => {
             },
             optimisticResponse:{
                 __typename:'Mutation',
-                addPerson:{
+                updatePerson:{
                     __typename:'Person',
                     id,
                     firstName,
                     lastName
                 }
-            },
-            update:(proxy, { data: { addPerson } } ) => {
-                const data = proxy.readQuery( { query: GET_PEOPLE } )
-                proxy.writeQuery({
-                    query: GET_PEOPLE,
-                    data:{
-                        ...data,
-                        people: [...data.people, addPerson]
-                        
-                    }
-                })
             }
         })
         props.handleEditMode()
@@ -49,6 +37,10 @@ const AddPerson = ( props ) => {
             size='large'
             // style={{border:'1px solid red'}}
             onFinish={onFinish}
+            initialValues={{
+                firstName: props.firstName,
+                lastName: props.lastName
+            }}
         >
             <Form.Item
                 name='firstName'
@@ -69,7 +61,7 @@ const AddPerson = ( props ) => {
                             !form.isFieldsTouched(true) ||
                             form.getFieldsError().filter( ( {  errors } ) => errors.length ).length
                         }
-                    > Add Person</Button>
+                    > Confirm</Button>
                 )}
             </Form.Item>
             <Button onClick={() => props.handleEditMode()}>Cancel</Button>
@@ -77,4 +69,4 @@ const AddPerson = ( props ) => {
     )
 }
 
-export default AddPerson
+export default UpdatePerson

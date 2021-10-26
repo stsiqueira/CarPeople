@@ -1,25 +1,50 @@
 .App {
   text-align: center;
+  background-color: rgb(200, 199, 196);
+  padding: 2rem;
 }
 
 .cardContainer{
   padding: .5rem 1rem 1rem 1rem;
   margin: 1rem 2rem;
   box-shadow: 1px 2px 3px 3px rgba(0,0,0,.2);
+  border-radius: 10px;
 
 }
 .carsContainer{
   display: flex;
-  flex-direction: row nowrap;
-  justify-content: space-around
+  flex-flow: row wrap;
+  justify-content: space-around;
+  padding: 1rem 0;
+  row-gap: 1rem;
 }
 .carContainer{
   padding: .5rem 1rem;
-  box-shadow: 1px 2px 3px 3px rgba(0,0,0,.2);
+  box-shadow: 1px 2px 3px 3px rgba(0,0,0,.1);
+  border-radius: 10px;
 }
 .wrapForm{
   display: flex;
-  border: 1px solid black;
   justify-content: space-around;
-  padding: 0 5rem;
+  padding: 2rem 5rem;
+}
+.buttons{
+  display: flex;
+  justify-content: space-around;
+}
+.addBtns{
+  background: #fff;
+  border-radius: 5px;
+  outline: none;
+  border: none;
+  box-shadow: 1px 1px 2px 2px rgba(0,0,0,.2);
+}
+.addBtns:hover{
+  box-shadow: 1px 1px 2px 2px rgba(0,0,0,.1);
+}
+.footer{
+  background-color: rgba(240, 240, 240, 0.944);
+  border-radius: 5px;
+  text-align: left;
+  padding: 0 1rem;
 }
