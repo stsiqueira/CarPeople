@@ -11,16 +11,6 @@ const PeopleCards = () => {
     if(error) return `Error! ${error.message}`
 
     return (
-        // <List grid={{ gutter: 16, column: 4 }} >
-        // {
-        //     data.people.map(( { id, firstName, lastName } ) => (
-        //         <List.Item key={id}>
-        //             <Person key={id} id={id} firstName={firstName} lastName={lastName}/>
-        //         </List.Item>
-        //     ))
-        // }
-
-        // </List>
         <List
         grid={{ gutter: 10, column: 2 }}
         itemLayout='horizontal'

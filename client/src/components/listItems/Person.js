@@ -4,6 +4,7 @@ import RemovePerson from "../buttons/RemovePerson";
 import CarCards from "../lists/CarCards";
 import { EditOutlined } from '@ant-design/icons'
 import UpdatePerson from "../forms/UpdatePerson";
+import { Link } from "react-router-dom";
 
 const Person = ( props ) => {
 
@@ -41,7 +42,7 @@ const Person = ( props ) => {
             }
                 <CarCards key={props.id} personId={props.id}/>
             <div className="footer">
-              <a>Learn more</a>
+             <Link to={`/people/${props.id}`}> Learn more</Link>
             </div>
         </div>
     )

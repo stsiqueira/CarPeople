@@ -5,7 +5,8 @@ import UpdateCar from "../forms/UpdateCar";
 
 const Car = ( props ) => {
     const [editMode, setEditMode ] = useState(false)
-
+    const priceFormatted = new Intl.NumberFormat('en-CA',{ style: 'currency', currency: 'CAD' }
+  ).format(props.price)
     const handleEditMode = () => {
         setEditMode(!editMode)
     }
@@ -22,7 +23,7 @@ const Car = ( props ) => {
                     <p>Make: {props.make}</p>
                     <p>Model: {props.model}</p>
                     <p>Year: {props.year}</p>
-                    <p>Price: {props.price}</p>
+                    <p>Price: {priceFormatted}</p>
                     <div className="buttons">
                         <EditOutlined onClick={handleEditMode} style={{color: 'green'}}/>
                         <RemoveCar data={props} />
