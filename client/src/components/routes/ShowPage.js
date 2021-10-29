@@ -1,5 +1,5 @@
 import { useQuery } from "@apollo/client";
-import React, { useEffect } from "react";
+import React from "react";
 import { Link, useParams} from "react-router-dom";
 import { GET_PEOPLE_WITH_CARS} from "../../queries";
 
@@ -27,7 +27,7 @@ const ShowPage = () =>{
                 <div className="carsContainer">
                 {
                     car.map((item) => (
-                        <div className="carContainer">
+                        <div className="carContainer" key={item.id}>
                             <div className="display">
                                 <p>Make: {item.make} </p>
                                 <p>Model: {item.model}</p>
