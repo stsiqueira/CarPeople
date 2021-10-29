@@ -7,6 +7,7 @@ const Car = ( props ) => {
     const [editMode, setEditMode ] = useState(false)
     const priceFormatted = new Intl.NumberFormat('en-CA',{ style: 'currency', currency: 'CAD' }
   ).format(props.price)
+  
     const handleEditMode = () => {
         setEditMode(!editMode)
     }
